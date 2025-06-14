@@ -1,4 +1,4 @@
-import { Formik, useFormik } from "formik"
+import { useFormik } from "formik"
 
 type FormValues = {
     name: string;
@@ -49,6 +49,8 @@ const Form = () => {
         validate: validate
     });
 
+    console.log('Visited Fields', formik.touched);
+
   return (
     <div className="flex w-full justify-center">
         <form className="flex flex-col min-w-[350px] max-w-[500px]"
@@ -58,9 +60,11 @@ const Form = () => {
                 <input type="text" id="name" name="name" 
                 className="border py-2 rounded-lg px-4"
                 onChange={formik.handleChange}
-                value={formik.values.name}/>
+                value={formik.values.name}
+                onBlur={formik.handleBlur}
+                />
                 <span className="text-red-400">
-                    {formik.errors.name ? <div>{formik.errors.name}</div> : null}
+                    { formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null}
                 </span>
             </div>
             
@@ -69,9 +73,11 @@ const Form = () => {
                 <input type="text" id="email" name="email"
                 className="border py-2 rounded-lg px-4"
                 onChange={formik.handleChange}
-                value={formik.values.email}/>
+                value={formik.values.email}
+                onBlur={formik.handleBlur}
+                />
                 <span className="text-red-400">
-                    {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+                    { formik.touched.email && formik.errors.email ? <div>{formik.errors.email}</div> : null}
                 </span>
             </div>
 
@@ -80,9 +86,11 @@ const Form = () => {
                 <input type="number" id="age" name="age"
                 className="border py-2 rounded-lg px-4"
                 onChange={formik.handleChange}
-                value={formik.values.age}/>
+                value={formik.values.age}
+                onBlur={formik.handleBlur}
+                />
                 <span className="text-red-400">
-                    {formik.errors.age ? <div>{formik.errors.age}</div> : null}
+                    { formik.touched.age && formik.errors.age ? <div>{formik.errors.age}</div> : null}
                 </span>
             </div>
 
