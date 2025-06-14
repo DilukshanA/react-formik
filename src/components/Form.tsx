@@ -1,16 +1,45 @@
 import { useFormik } from "formik"
 
+type FormValues = {
+    name: string;
+    email: string;
+    age: number;
+}
+
+const initialValues : FormValues = {
+    name: '',
+    email: '',
+    age: 0,
+}
+
+const onSubmit = (values : FormValues) => {
+    console.log('Form data', values);
+}
+
+const validate = (values : FormValues) => {
+
+        const errors : Partial<FormValues> = {};
+
+        if(!values.name) {
+            errors.name = 'Required';
+        }
+        if(!values.email) {
+            errors.email = 'Required';
+        } else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+            errors.email = 'Invalid email address';
+        }
+        if(!values.age || values.age <= 0) {
+            errors.age = 0;
+        }
+        return errors
+}
+
 const Form = () => {
 
     const formik = useFormik({
-        initialValues: {
-            name: '',
-            email: '',
-            age: ''
-        },
-        onSubmit: (values) => {
-            console.log('Form data', values);
-        } 
+        initialValues: initialValues,
+        onSubmit: onSubmit,
+        validate: validate
     });
 
   return (
